@@ -12,13 +12,14 @@
     </author>
     <category citation-format="author-date"/>
     <category field="generic-base"/>
-    <updated>2021-10-25T15:32:58+00:00</updated>
+    <updated>2024-02-15T10:55:41+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
   </info>
   <locale xml:lang="de">
     <terms>
       <term name="et-al">et al.</term>
       <term name="in">In</term>
+      <term name="from">vom</term>
       <term name="accessed">abgerufen am</term>
     </terms>
   </locale>
@@ -58,7 +59,7 @@
   <macro name="author">
     <names variable="author" delimiter="; ">
       <name name-as-sort-order="all" sort-separator=" " initialize-with="" delimiter=", " delimiter-precedes-last="always"/>
-      <label form="long" prefix=", " strip-periods="true"/>
+      <label form="short" strip-periods="false" prefix=" (" suffix=")"/>
       <substitute>
         <names variable="editor translator"/>
         <text variable="title"/>
@@ -71,7 +72,7 @@
       <substitute>
         <names variable="editor"/>
         <names variable="translator"/>
-        <text variable="title-short"/>
+        <text variable="title" form="short"/>
       </substitute>
     </names>
   </macro>
@@ -85,7 +86,11 @@
     <group delimiter=", ">
       <group delimiter=" ">
         <text term="accessed" text-case="capitalize-first"/>
-        <date form="numeric" variable="accessed"/>
+        <date variable="accessed">
+          <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+          <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+          <date-part name="year"/>
+        </date>
       </group>
       <choose>
         <if match="any" variable="DOI">
@@ -184,6 +189,11 @@
           <text macro="author-short"/>
           <text macro="year-date"/>
         </group>
+        <choose>
+          <if type="interview" match="any">
+            <text term="interview"/>
+          </if>
+        </choose>
         <text variable="locator"/>
       </group>
     </layout>
@@ -238,7 +248,11 @@
             <else-if type="article-newspaper article-magazine" match="any">
               <group delimiter=", ">
                 <text variable="container-title"/>
-                <date form="numeric" variable="issued"/>
+                <date variable="issued">
+                  <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+                  <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+                  <date-part name="year"/>
+                </date>
                 <group delimiter=" ">
                   <label variable="page" form="short"/>
                   <text variable="page"/>
@@ -253,12 +267,31 @@
                 </group>
                 <group delimiter=", ">
                   <text variable="dimensions"/>
-                  <date form="numeric" variable="issued"/>
+                  <date variable="issued">
+                    <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+                    <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+                    <date-part name="year"/>
+                  </date>
                 </group>
               </group>
             </else-if>
             <else-if type="webpage post post-weblog" match="any">
-              <date form="numeric" variable="issued"/>
+              <date variable="issued">
+                <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+                <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+                <date-part name="year"/>
+              </date>
+            </else-if>
+            <else-if type="interview" match="any">
+              <group delimiter=" ">
+                <text term="interview" text-case="capitalize-first"/>
+                <text term="from"/>
+                <date variable="issued">
+                  <date-part name="day" form="numeric-leading-zeros" suffix="."/>
+                  <date-part name="month" form="numeric-leading-zeros" suffix="."/>
+                  <date-part name="year"/>
+                </date>
+              </group>
             </else-if>
             <else>
               <text macro="editor" suffix="." prefix=" "/>

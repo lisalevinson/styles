@@ -39,6 +39,9 @@ ISSN:
 - 1520-8524
 - 1161-9473
 - 2496-7114
+- 1736-6046
+- 1736-7530
+- 0037-2781
 
 # These titles are ignored when checking for duplicate titles
 TITLES: []
@@ -60,6 +63,7 @@ UNUSED_MACROS:
 - apa-with-abstract
 - chicago-annotated-bibliography
 - chicago-author-date
+- chicago-author-date-no-em-dash
 - chicago-author-date-16th-edition
 - chicago-library-list
 - chicago-note-bibliography-16th-edition
@@ -81,6 +85,7 @@ EXTRA_FILES:
 - STYLE_DEVELOPMENT.md
 - STYLE_REQUIREMENTS.md
 - QUALITY_CONTROL.md
+- composer.json
 
 # These directories and their contents are ignored when checking for extra files
 EXTRA_FILES_DIRECTORY:
